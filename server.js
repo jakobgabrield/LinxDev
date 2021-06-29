@@ -61,26 +61,26 @@ app.delete('/folders/:id', async (req, res) => {
     await pool.query(query1);
 });
 
-//Signup
-app.post('/signup', async (req, res) => {
-    //Check to see that email isn't already used.
-    const { first_name, last_name, email, password } = req.body;
-    const query = `INSERT INTO users (first_name, last_name, email, password) values ('${first_name}', '${last_name}', '${email}', '${password}');`;
-    const result = await pool.query(query);
-    res.json(result.rows);
-});
+// //Signup
+// app.post('/signup', async (req, res) => {
+//     //Check to see that email isn't already used.
+//     const { first_name, last_name, email, password } = req.body;
+//     const query = `INSERT INTO users (first_name, last_name, email, password) values ('${first_name}', '${last_name}', '${email}', '${password}');`;
+//     const result = await pool.query(query);
+//     res.json(result.rows);
+// });
 
-//Signin
-app.post('/signin', async (req, res) => {
-    const { email, password } = req.body;
-    const query = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}';`;
-    const result = await pool.query(query);
-    if (result.rowCount != 0) {
-        res.json({user: result.rows[0], token: "hjk23kjh242"});
-    } else {
-        res.json({user: null, token: null});
-    }
-});
+// //Signin
+// app.post('/signin', async (req, res) => {
+//     const { email, password } = req.body;
+//     const query = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}';`;
+//     const result = await pool.query(query);
+//     if (result.rowCount != 0) {
+//         res.json({user: result.rows[0], token: "hjk23kjh242"});
+//     } else {
+//         res.json({user: null, token: null});
+//     }
+// });
 
 app.post('/signup', async (req, res) => {
     const {first_name, last_name, email, password} = req.body;
@@ -119,12 +119,12 @@ app.post('/signin', async (req, res) => {
         bcrypt.compare(password, hashPassword, async function(err, result) {
             if (result) {
                 //Get user info and return it with a jwt
-                const query = `SELECT * FROM users WHERE email = '${email}';`;
-                const result = await pool.query(query);
-                const userInfo = result.rows[0];
-                const { u_id, first_name, last_name, email } = userInfo;
+                const query2 = `SELECT * FROM users WHERE email = '${email}';`;
+                const result2 = await pool.query(query2);
+                const userInfo = result2.rows[0];
+                const { u_id, first_name, last_name} = userInfo;
                 const token = jwt.sign({ u_id, first_name, last_name, email}, jwtSecret);
-                res.json( {user: {u_id, first_name, last_name, email}, token });
+                res.json( {user: {u_id, first_name, last_name, email}, token: token });
             } else {
                 res.status(401).json({ message: "Wrong password" });
             }

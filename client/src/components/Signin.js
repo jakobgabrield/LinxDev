@@ -59,9 +59,8 @@ export default function SignIn({setToken, setLogin, setUser}) {
       const result = await api.post('/signin', {email, password});
       if (result.data.user) {
         const { user, token } = result.data;
-        setUser({u_id: user.u_id, first_name: user.first_name, last_name: user.last_name});
+        setUser({u_id: user.u_id, first_name: user.first_name, last_name: user.last_name, email: user.email});
         setToken({token});
-        console.log("setting user");
       }
     }
   }
