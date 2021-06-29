@@ -6,6 +6,7 @@ const jwtSecret = "secretPassword";
 const jwt = require('jsonwebtoken');
 const pool = require('./db.js');
 const app = express();
+const path = require('path');
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
@@ -135,6 +136,7 @@ app.post('/signin', async (req, res) => {
 });
 
 app.get("*", (req, res) => {
+    console.log(path.join(__dirname, "client/build/index.html"));
     res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 
