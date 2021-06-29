@@ -75,9 +75,6 @@ export default function Sidebar({setSelectedFolder, user}) {
 
   return (
     <div className="sidebar">
-      <div className="sidebar-header">
-        {/* <img className="sidebar-header-logo" src={Link} /> */}
-      </div>
       <div className="sidebar-userCard">
           <Avatar className="sidebar-header-avatar">{user.first_name[0] + user.last_name[0]}</Avatar>
           <div className="sidebar-userCard-text">
