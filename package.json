@@ -1,0 +1,29 @@
+{
+  "name": "linx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sever.js",
+  "scripts": {
+    "start": "node server.js",
+    "heroku_postbuild": "cd client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakobgabrield/LinxDev.git"
+  },
+  "keywords": [],
+  "author": "Jakob Deutsch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakobgabrield/LinxDev/issues"
+  },
+  "homepage": "https://github.com/jakobgabrield/LinxDev#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.6.0"
+  }
+}
