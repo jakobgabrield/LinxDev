@@ -46,7 +46,8 @@ app.post('/', async (req, res) => {
 
 //Add Link
 app.post('/folders/:id', async (req, res) => {
-    const query = `INSERT INTO links (name, url, description, f_id) VALUES ('${req.body.name}', '${req.body.url}', '${req.body.description}', ${req.params.id});`;
+    const {name, url, description} = req.body;
+    const query = `INSERT INTO links (name, url, description, f_id) VALUES ('${name}', '${url}', '${description}', ${req.params.id});`;
     const result = await pool.query(query);
     res.json(result.rows);
 });
