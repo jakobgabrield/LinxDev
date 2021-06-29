@@ -4,13 +4,14 @@ import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import api from '../axios';
+import axios from 'axios';
 
 const Content = ({selectedFolder}) => {
 
     const [links, setLinks] = useState([]);
 
     const getLinks = async () => {
-        const result = await api.get(`/links/${selectedFolder.f_id}`);
+        const result = await axios.get(`/links/${selectedFolder.f_id}`);
         setLinks(result.data);
     }
 

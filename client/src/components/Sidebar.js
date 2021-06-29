@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import api from '../axios';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,7 @@ export default function Sidebar({setSelectedFolder, user}) {
 
   const getFolders = async () => {
     // const result = await api.get(`/folders/${user.u_id}`);
-    const result = await api.get(`/folders/${user.u_id}`);
+    const result = await axios.get(`/folders/${user.u_id}`);
     setFolders(result.data);
   }
 

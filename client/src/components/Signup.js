@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import api from '../axios';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -58,7 +59,7 @@ export default function SignUp({setLogin}) {
   const handleSignup = async (e) => {
     e.preventDefault();
     if (first_name.trim() !== "" && last_name.trim() !== "" && email.trim() !== "" && password.trim() !== "") {
-      await api.post('/signup', {first_name, last_name, email, password});
+      await axios.post('/signup', {first_name, last_name, email, password});
       setLogin(true);
     }
   }

@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import api from '../axios';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -56,7 +57,7 @@ export default function SignIn({setToken, setLogin, setUser}) {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (email.trim() !== "" && password.trim() !== "") {
-      const result = await api.post('/signin', {email, password});
+      const result = await axios.post('/signin', {email, password});
       if (result.data.user) {
         const { user, token } = result.data;
         setUser({u_id: user.u_id, first_name: user.first_name, last_name: user.last_name, email: user.email});
@@ -114,9 +115,9 @@ export default function SignIn({setToken, setLogin, setUser}) {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              {/* <Link href="#" variant="body2">
                 Forgot password?
-              </Link>
+              </Link> */}
             </Grid>
             <Grid item>
               <Link onClick={() => {
