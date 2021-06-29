@@ -96,8 +96,8 @@ const Content = ({selectedFolder}) => {
                 onChange={e => setDescription(e.target.value)}
             />
             <div className="dialog-buttons">
-                <Button onClick={handleAdd}>Add</Button>
-                <Button onClick={handleClick}>Cancel</Button>
+                <Button onClick={() => handleAdd()}>Add</Button>
+                <Button onClick={() => handleClick()}>Cancel</Button>
             </div>
         </div>
       </Dialog>
