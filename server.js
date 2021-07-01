@@ -94,7 +94,8 @@ app.post('/signup', async (req, res) => {
                     from: 'linxtechco@gmail.com',
                     to: email,
                     subject: 'Welcome to Linx',
-                    text: 'Thank you for joining Linx.'
+                    text: `Hey ${first_name},\n\n
+                    Thank you for joining the Linx family! Your life might be a mess, but your links just got a whole lot more organized.`
                   };
                   
                   transporter.sendMail(mailOptions, function(error, info){
