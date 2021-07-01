@@ -7,7 +7,16 @@ const jwt = require('jsonwebtoken');
 const pool = require('./db.js');
 const app = express();
 const path = require('path');
+var nodemailer = require('nodemailer');
 const PORT = process.env.PORT || 5000;
+
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'linxtechco@gmail.com',
+      pass: 'Jakob9797!'
+    }
+});
 
 app.use(express.json());
 app.use(cors());
@@ -63,27 +72,7 @@ app.delete('/folders/:id', async (req, res) => {
     await pool.query(query1);
 });
 
-// //Signup
-// app.post('/signup', async (req, res) => {
-//     //Check to see that email isn't already used.
-//     const { first_name, last_name, email, password } = req.body;
-//     const query = `INSERT INTO users (first_name, last_name, email, password) values ('${first_name}', '${last_name}', '${email}', '${password}');`;
-//     const result = await pool.query(query);
-//     res.json(result.rows);
-// });
-
-// //Signin
-// app.post('/signin', async (req, res) => {
-//     const { email, password } = req.body;
-//     const query = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}';`;
-//     const result = await pool.query(query);
-//     if (result.rowCount != 0) {
-//         res.json({user: result.rows[0], token: "hjk23kjh242"});
-//     } else {
-//         res.json({user: null, token: null});
-//     }
-// });
-
+//Signup
 app.post('/signup', async (req, res) => {
     const {first_name, last_name, email, password} = req.body;
     
@@ -101,6 +90,20 @@ app.post('/signup', async (req, res) => {
             const result = await pool.query(query);
             if (result.rows) {
                 res.json({ message: "Registration was successful!" });
+                var mailOptions = {
+                    from: 'linxtechco@gmail.com',
+                    to: email,
+                    subject: 'Welcome to Linx',
+                    text: 'Thank you for joining Linx.'
+                  };
+                  
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log('Email sent: ' + info.response);
+                    }
+                  });
             } else {
                 res.status(401).json({ message: "Registration failed." });
             }
@@ -108,7 +111,7 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-//Not working
+//Signin
 app.post('/signin', async (req, res) => {
     const {email, password} = req.body;
 
