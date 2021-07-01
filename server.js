@@ -94,9 +94,8 @@ app.post('/signup', async (req, res) => {
                     from: 'linxtechco@gmail.com',
                     to: email,
                     subject: 'Welcome to Linx',
-                    text: `Hey ${first_name},\n\n
-                    Thank you for joining the Linx family! Your life might be a mess, but your links just got a whole lot more organized.`
-                  };
+                    html: `<p>Hey ${first_name},<br><br>Thank you for joining the Linx family! Your life might be a mess, but your linx just got a whole lot more organized. Don't foget to linx up with us on social media.<br><br><a href="https://linxtech.herokuapp.com">Linx</a></p>`,
+                };
                   
                   transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
