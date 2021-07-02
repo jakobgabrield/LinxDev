@@ -56,6 +56,8 @@ export default function Sidebar({setSelectedFolder, user}) {
     if (folderName.trim() !== "" && folderDescription.trim() !== "") {
       api.post(`/`, {name: folderName, description: folderDescription, u_id: user.u_id});
       setFolders([...folders, {name: folderName, description: folderDescription, u_id: user.u_id}]);
+    } else {
+      alert("Folder name and description are required.");
     }
 
     //Clear fields

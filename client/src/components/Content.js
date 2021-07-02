@@ -35,10 +35,12 @@ const Content = ({selectedFolder}) => {
     
       const handleAdd = () => {
         //Handle Backed Stuff
-        if (name.trim() !== "" && url.trim() !== "") {
+        if (name.trim() !== "" && url.trim() !== "" && description !== "") {
           //Add link to database under current folder
             api.post(`/folders/${selectedFolder.f_id}`, {name, url, description});
             setLinks([...links, {name, url, description}]);
+        } else {
+            alert("Name, URL, and description are required fields.")
         }
 
         //Clear fields
