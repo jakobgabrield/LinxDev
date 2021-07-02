@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 2)
   },
 }));
 
@@ -57,7 +57,7 @@ export default function SignIn({setToken, setLogin, setUser}) {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (email.trim() !== "" && password.trim() !== "") {
-      const result = await axios.post('/signin', {email, password});
+      const result = await axios.post('/signin', {email: email.toLocaleLowerCase(), password});
       if (result.data.user) {
         const { user, token } = result.data;
         setUser({u_id: user.u_id, first_name: user.first_name, last_name: user.last_name, email: user.email});
@@ -86,7 +86,7 @@ export default function SignIn({setToken, setLogin, setUser}) {
             autoComplete="email"
             autoFocus
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value.toLocaleLowerCase())}
           />
           <TextField
             variant="outlined"

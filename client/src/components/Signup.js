@@ -19,7 +19,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://linxtech.herokuapp.com/">
         Linx
       </Link>{' '}
       {new Date().getFullYear()}
@@ -58,8 +58,8 @@ export default function SignUp({setLogin}) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    if (first_name.trim() !== "" && last_name.trim() !== "" && email.trim() !== "" && password.trim() !== "") {
-      await axios.post('/signup', {first_name, last_name, email, password});
+    if (first_name.trim() !== "" && last_name.trim() !== "" && email.toLocaleLowerCase().trim() !== "" && password.trim() !== "") {
+      await axios.post('/signup', {first_name, last_name, email: email.toLocaleLowerCase(), password});
       setLogin(true);
     }
   }

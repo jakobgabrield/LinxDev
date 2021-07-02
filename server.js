@@ -75,7 +75,7 @@ app.delete('/folders/:id', async (req, res) => {
 //Signup
 app.post('/signup', async (req, res) => {
     const {first_name, last_name, email, password} = req.body;
-    
+
     //Check if user already exists
     const query = `SELECT * FROM users WHERE email = '${email}';`;
     const user = await pool.query(query);
@@ -90,20 +90,20 @@ app.post('/signup', async (req, res) => {
             const result = await pool.query(query);
             if (result.rows) {
                 res.json({ message: "Registration was successful!" });
+                //Sends welcome email to user
                 var mailOptions = {
                     from: 'linxtechco@gmail.com',
                     to: email,
                     subject: 'Welcome to Linx',
                     html: `<p>Hey ${first_name},<br><br>Thank you for joining the Linx family! Your life might be a mess, but your linx just got a whole lot more organized. Don't foget to linx up with us on social media.<br><br><a href="https://linxtech.herokuapp.com">Linx</a></p>`,
                 };
-                  
-                  transporter.sendMail(mailOptions, function(error, info){
+                transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
-                      console.log(error);
+                        console.log(error);
                     } else {
-                      console.log('Email sent: ' + info.response);
+                        console.log('Email sent: ' + info.response);
                     }
-                  });
+                });
             } else {
                 res.status(401).json({ message: "Registration failed." });
             }
