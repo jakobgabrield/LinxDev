@@ -82,7 +82,7 @@ app.post('/signup', async (req, res) => {
     
     //If user already exists with that email
     if (user.rowCount > 0) {
-        res.status(401).send({ message: "This username is not available." });
+        res.json({ message: "Sorry, this username is not available. Please choose a new one." });
     } else {
         bcrypt.hash(password, saltRounds, async (err, hash) => {
             //Insert user into database
@@ -118,7 +118,7 @@ app.post('/signin', async (req, res) => {
     //Get hashPassword from database
     const query = `SELECT password FROM users WHERE email = '${email}';`;
     const result = await pool.query(query);
-    const hashPassword = result ? result.rows[0].password : null;
+    const hashPassword = result.rows.length > 0 ? result.rows[0].password : null;
 
     if (hashPassword) {
         bcrypt.compare(password, hashPassword, async function(err, result) {
@@ -135,7 +135,7 @@ app.post('/signin', async (req, res) => {
             }
         });
     } else {
-        res.status(401).json({ message: "No user exists with that email." })
+        res.json({ message: "No user exists with that email and password combination. Please try again." })
     }
 });
 

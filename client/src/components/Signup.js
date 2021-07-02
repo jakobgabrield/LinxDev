@@ -59,8 +59,16 @@ export default function SignUp({setLogin}) {
   const handleSignup = async (e) => {
     e.preventDefault();
     if (first_name.trim() !== "" && last_name.trim() !== "" && email.toLocaleLowerCase().trim() !== "" && password.trim() !== "") {
-      await axios.post('/signup', {first_name, last_name, email: email.toLocaleLowerCase(), password});
-      setLogin(true);
+      const result = await axios.post('/signup', {first_name, last_name, email: email.toLocaleLowerCase(), password});
+      if (result.data.message) {
+        alert(result.data.message);
+        setEmail("");
+        setPassword("");
+      } else {
+        setLogin(true);
+      }
+    } else {
+      alert("All fields are required.");
     }
   }
 
