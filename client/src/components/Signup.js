@@ -60,8 +60,8 @@ export default function SignUp({setLogin}) {
     e.preventDefault();
     if (first_name.trim() !== "" && last_name.trim() !== "" && email.toLocaleLowerCase().trim() !== "" && password.trim() !== "") {
       const result = await axios.post('/signup', {first_name, last_name, email: email.toLocaleLowerCase(), password});
-      if (result.data.message) {
-        alert(result.data.message);
+      if (result.data.errorMessage) {
+        alert(result.data.errorMessage);
         setEmail("");
         setPassword("");
       } else {

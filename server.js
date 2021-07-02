@@ -82,7 +82,7 @@ app.post('/signup', async (req, res) => {
     
     //If user already exists with that email
     if (user.rowCount > 0) {
-        res.json({ message: "Sorry, this username is not available. Please choose a new one." });
+        res.json({ errorMessage: "Sorry, this username is not available. Please choose a new one." });
     } else {
         bcrypt.hash(password, saltRounds, async (err, hash) => {
             //Insert user into database
@@ -95,7 +95,7 @@ app.post('/signup', async (req, res) => {
                     from: 'linxtechco@gmail.com',
                     to: email,
                     subject: 'Welcome to Linx',
-                    html: `<p>Hey ${first_name},<br><br>Thank you for joining the Linx family! Your life might be a mess, but your linx just got a whole lot more organized. Don't foget to linx up with us on social media.<br><br><a href="https://linxtech.herokuapp.com">Linx</a></p>`,
+                    html: `<p>Hey ${first_name},<br><br>Thank you for joining the Linx family! Your life might be a mess, but your linx just got a whole lot more organized. Don't foget to link up with us on social media.<br><br><a href="https://linxtech.herokuapp.com">Linx</a></p>`,
                 };
                 transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
@@ -105,7 +105,7 @@ app.post('/signup', async (req, res) => {
                     }
                 });
             } else {
-                res.status(401).json({ message: "Registration failed." });
+                res.json({ errorMessage: "Registration failed." });
             }
         });
     }
@@ -131,11 +131,11 @@ app.post('/signin', async (req, res) => {
                 const token = jwt.sign({ u_id, first_name, last_name, email}, jwtSecret);
                 res.json( {user: {u_id, first_name, last_name, email}, token: token });
             } else {
-                res.status(401).json({ message: "Wrong password" });
+                res.json({ message: "Wrong password. Please try again." });
             }
         });
     } else {
-        res.json({ message: "No user exists with that email and password combination. Please try again." })
+        res.json({ message: "No user exists with that email." })
     }
 });
 
